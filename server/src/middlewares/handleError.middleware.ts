@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../errors/appError";
 
-const handleErrorMiddleware = async (
+export const handleErrorMiddleware = async (
   error: Error,
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) => {
   if (error instanceof AppError) {
     return res.status(error.statusCode).json({
@@ -12,6 +13,7 @@ const handleErrorMiddleware = async (
       message: error.message,
     });
   }
+
   console.log(error);
 
   return res.status(500).json({
@@ -19,5 +21,3 @@ const handleErrorMiddleware = async (
     message: "Internal server error",
   });
 };
-
-export default handleErrorMiddleware;
