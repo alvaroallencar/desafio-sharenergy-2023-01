@@ -1,11 +1,14 @@
 import { model, Schema } from "mongoose";
 
-const UserSchema: Schema = new Schema({
+const CustomerSchema: Schema = new Schema({
   name: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  phone: { type: String, required: true },
+  address: { type: Object, required: true },
+  cpf: { type: String, required: true, unique: true },
+  registeredBy: { type: String, required: true },
   createdAt: { type: Date, required: true, default: new Date() },
   updatedAt: { type: Date, required: true, default: new Date() },
 });
 
-export const User = model("User", UserSchema);
+export const Customer = model("Customer", CustomerSchema);
